@@ -3,80 +3,115 @@ import java.util.Scanner;
 public class MainClass {
 
 
-    public static boolean is_div_by_3(int x){
+    public static boolean is_div_by_3(int x) {
 
-        return ((x % 3) ==0);
+        return ((x % 3) == 0&& x!=0);
     }
 
 
-    public static boolean is_div_by_5(int x){
+    public static boolean is_div_by_5(int x) {
 
-        return ((x % 5) ==0);
-    }
-    public static boolean is_div_by_7(int x){
-
-        return ((x % 7) ==0);
+        return ((x % 5) == 0 && x!=0);
     }
 
-    public static String compute (String s){
+    public static boolean is_div_by_7(int x) {
 
-        String result="";
+        return ((x % 7) == 0&& x!=0);
+    }
+
+    public static String compute(String s) {
+
+        String result = "";
+        boolean is_divisible_by_any = true;
+
+
         // DIVISIBLE BLOCK
-
-        if (is_div_by_3(Integer.valueOf(s))){
-            result+="Foo";
-        }
-
-        if (is_div_by_5(Integer.valueOf(s))){
-            result+="Bar";
-        }
-
-        if (is_div_by_7(Integer.valueOf(s))){
-            result+="Qix";
-        }
-
-        //DIVISIBLE DIGIT BLOCK
-            for (int i = 0,n=s.length();i<n;i++){
-
-        if (is_div_by_3(Integer.valueOf(Character.toString(s.charAt(i))))){
-
+        int x1 = Integer.valueOf(s);
+        if (is_div_by_3(x1)) {
             result += "Foo";
         }
-        if (is_div_by_5(Integer.valueOf(Character.toString(s.charAt(i))))){
-             result+="Bar";
-          }
-        if (is_div_by_7(Integer.valueOf(Character.toString(s.charAt(i))))){
-             result+="Qix";
+
+        if (is_div_by_5(x1)) {
+            result += "Bar";
+        }
+
+        if (is_div_by_7(x1)) {
+            result += "Qix";
+        }
+
+        if (!is_div_by_3(x1) && !is_div_by_5(x1) && !is_div_by_7(x1)) {
+            is_divisible_by_any = false;
+//            System.out.println("--> detected is dividable by any false");
+        }
+
+
+        //DIVISIBLE DIGIT BLOCK
+
+        if (is_divisible_by_any) {
+            for (int i = 0, n = s.length(); i < n; i++) {
+//                System.out.println("value of n -->"+n);
+                if (s.charAt(i) == '0') {
+
+                    result += "*";
+                }
+                int x = Integer.valueOf(Character.toString(s.charAt(i)));
+
+//                System.out.println("converted digit-->"+x);
+
+                if (is_div_by_3(x)) {
+//                    System.out.println(x+" is divisible by 3");
+                    result += "Foo";
+
+                }
+                if (is_div_by_5(x)) {
+//                    System.out.println(x+" is divisible by 5");
+                    result += "Bar";
+                }
+                if (is_div_by_7(x)) {
+//                    System.out.println(x+" is divisible by 7");
+                    result += "Qix";
+                }
+
             }
+        }
+        else
+            {
+            for (int i = 0, n = s.length(); i < n; i++) {
+                if (s.charAt(i) == '0') {
+
+                    result += "*";
+                } else {
+                    result += s.charAt(i);
+                }
             }
+        }
 
         return result;
     }
 
 
-
     public static void main(String[] args) {
-        String s="";
-        boolean problem=false;
-do {
+        String s = "";
+        boolean problem = false;
+        do {
 
-        try {
+            try {
 
-            System.out.println("Donner la chaine à tester");
+                System.out.println("Donner la chaine à tester");
 
-            Scanner sc = new Scanner(System.in);
-            s=sc.nextLine();
+                Scanner sc = new Scanner(System.in);
+                s = sc.nextLine();
 
-            Integer.parseInt(s);
-            System.out.println(compute(s));
-            s="";
-        }catch (Exception e){
+                Integer.parseInt(s);
+                System.out.println(compute(s));
+                s = "";
+            } catch (Exception e) {
 
-            System.out.println("erreur de conversion , verifier la chaine saisie");
-            problem=true;
-        }
+                System.out.println("erreur de conversion , verifier la chaine saisie");
+                problem = true;
+            }
 
-}while (problem=true);
+        } while (problem = true);
 
     }
 
